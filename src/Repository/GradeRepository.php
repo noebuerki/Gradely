@@ -82,21 +82,21 @@ class GradeRepository extends Repository
 
 	public function addGrade($value, $notes, $semester, $subjectId, $weightId, $typeId, $userId)
 	{
-		$query = "INSERT INTO $this->tablename (wert, bemerkung, semester, fachID, gewichtungID, typID, benutzerID) VALUES (?, ?, ?, ?, ?, ?, ?)";
+		$query = "INSERT INTO $this->tablename (wert, bemerkung, semester, fachID, gewichtungID, typID, benutzerID, aktualisiert) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
 
 		$notes = htmlentities($notes);
 		$statement = ConnectionHandler::getConnection()->prepare($query);
-		$statement->bind_param('dsiiiii', $value, $notes, $semester, $subjectId, $weightId, $typeId, $userId);
+		$statement->bind_param('dsiiiiis', $value, $notes, $semester, $subjectId, $weightId, $typeId, $userId, date("d.m.20y"));
 
 		$statement->execute();
 	}
 
 	public function updateGrade($gradeId, $value, $notes, $typeId, $weigthId, $userId)
 	{
-		$query = "UPDATE $this->tablename SET wert = ?, bemerkung = ?, gewichtungID = ?, typID = ? WHERE id = ? and benutzerID = ?";
+		$query = "UPDATE $this->tablename SET wert = ?, bemerkung = ?, gewichtungID = ?, typID = ?, aktualisiert = ? WHERE id = ? and benutzerID = ?";
 
 		$statement = ConnectionHandler::getConnection()->prepare($query);
-		$statement->bind_param('dsiiii', $value, $notes, $weigthId, $typeId, $gradeId, $userId);
+		$statement->bind_param('dsiisii', $value, $notes, $weigthId, $typeId, date("d.m.20y"), $gradeId, $userId);
 
 		$statement->execute();
 	}

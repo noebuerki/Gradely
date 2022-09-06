@@ -13,7 +13,7 @@
         </div>
 
         <div class="form-group">
-            <input type="text" placeholder="Bemerkung" class="form-control" name="notesInput" maxlength="30"
+            <input required type="text" placeholder="Bemerkung" class="form-control" name="notesInput" maxlength="30"
                    data-toggle="tooltip" title="Bemerkung einfügen">
             <div class="invalid-feedback">
                 Ungültiges Format

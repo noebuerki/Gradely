@@ -4,22 +4,25 @@
 
     <div class="container">
         <div class="row row-cols-2 row-cols-md-4 justify-content-center">
-			<?php
-			foreach ($grades as $grade) {
-				echo '
+            <?php
+            foreach ($grades as $grade) {
+                echo '
             <div class="col">
                 <a href="/grade/edit?gradeid=' . $grade->id . '" role="button" class="btn btn-info w-100 mb-4">
-                        <div class="mb-4 align-items-center" data-toggle="tooltip" title="Beschreibung: ' . htmlentities($grade->bemerkung) . ' | Gewichtung: ' . $weights[$grade->gewichtungID] . '">
-                            <i class="bi bi-pencil-square mt-1 align-self-end" style="margin-left: 90%"></i>
-                            <p>' . $types[$grade->typID] . '</p>
-                            <p class="mb-4 my-md-4">' . $grade->wert . '</p>
+                        <div class="mb-4 align-items-center" data-toggle="tooltip" title="Typ: ' . $types[$grade->typID] . 'Gewichtung: ' . $weights[$grade->gewichtungID] . '">
+                            <div class="d-flex my-1 justify-content-between">
+                                <span>' . $grade->aktualisiert . '</span>
+                                <i class="bi bi-pencil-square align-self-end"></i>
+                            </div>
+                            <p>' . $grade->bemerkung . '</p>
+                            <p class="mb-3">' . $grade->wert . '</p>
                         </div>
                     </a>      
             </div>
                           
             ';
-			}
-			?>
+            }
+            ?>
         </div>
     </div>
 

@@ -1,8 +1,6 @@
 <p class="mt-5">
     Die Webseite wurde erstellt von:
     <br>
-    Aleksandar Radosavljevic
-    <br>
     Noé Bürki
 </p>
 
@@ -22,12 +20,8 @@
 </p>
 
 <p>
-    <a href="mailto:bradoa@bbcag.ch" data-toggle="tooltip" title="E-Mail schreiben">
-        <i class="bi bi-envelope-fill"></i> bradoa@bbcag.ch
-    </a>
-    <br>
-    <a href="mailto:bbuern@bbcag.ch" data-toggle="tooltip" title="E-Mail schreiben"><i class="bi bi-envelope-fill"></i>
-        bbuern@bbcag.ch</a>
+    <a href="mailto:contact@gradely.ch" data-toggle="tooltip" title="E-Mail schreiben"><i class="bi bi-envelope-fill"></i>
+        contact@gradely.ch</a>
 </p>
 
 <div class="d-flex flex-row justify-content-center">

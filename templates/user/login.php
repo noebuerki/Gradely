@@ -7,14 +7,14 @@
                 <div class="form-group">
                     <input required type="text" placeholder="Benutzername" class="form-control" data-toggle="tooltip"
                            title="Benutzername eingeben"
-                           name="usernameInput">
+                           name="usernameInput" id="usernameInput">
                     <div class="invalid-feedback">Benutzername eingeben</div>
                 </div>
 
                 <div class="form-group">
                     <input required type="password" placeholder="Passwort" class="form-control" data-toggle="tooltip"
                            title="Passwort eingeben"
-                           name="passwordInput">
+                           name="passwordInput" id="passwordInput">
                     <div class="invalid-feedback">Passwort eingeben</div>
                 </div>
 
@@ -44,6 +44,7 @@
                         event.preventDefault();
                         event.stopPropagation();
                     }
+                    window.AppInterface.saveLogin(document.getElementById("usernameInput").value, document.getElementById("passwordInput").value)
                     form.classList.add('was-validated');
                 }, false);
             });

@@ -13,7 +13,7 @@
         </div>
 
         <div class="form-group">
-            <input type="text" placeholder="Bemerkung" data-toggle="tooltip" title="Bemerkung einfügen"
+            <input required type="text" placeholder="Bemerkung" data-toggle="tooltip" title="Bemerkung einfügen"
                    value="<?php echo htmlentities($grade->bemerkung) ?>"
                    class="form-control"
                    name="notesInput" maxlength="30">

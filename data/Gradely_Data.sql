@@ -5,19 +5,19 @@ SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0;
 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION';
 
 -- -----------------------------------------------------
--- Schema gradely
+-- Schema gradely.ch
 -- -----------------------------------------------------
 
 -- -----------------------------------------------------
--- Schema gradely
+-- Schema gradely.ch
 -- -----------------------------------------------------
-CREATE SCHEMA IF NOT EXISTS `gradely` DEFAULT CHARACTER SET utf8 ;
-USE `gradely` ;
+CREATE SCHEMA IF NOT EXISTS `gradely.ch` DEFAULT CHARACTER SET utf8 ;
+USE `gradely.ch` ;
 
 -- -----------------------------------------------------
--- Table `gradely`.`benutzer`
+-- Table `gradely.ch`.`benutzer`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `gradely`.`benutzer` (
+CREATE TABLE IF NOT EXISTS `gradely.ch`.`benutzer` (
   `id` INT NOT NULL AUTO_INCREMENT,
   `username` VARCHAR(45) NOT NULL,
   `email` VARCHAR(100) NOT NULL,
@@ -28,9 +28,9 @@ ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `gradely`.`schule`
+-- Table `gradely.ch`.`schule`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `gradely`.`schule` (
+CREATE TABLE IF NOT EXISTS `gradely.ch`.`schule` (
   `id` INT NOT NULL AUTO_INCREMENT,
   `name` VARCHAR(45) NOT NULL,
   `semester` INT NOT NULL,
@@ -39,30 +39,30 @@ ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `gradely`.`benutzerschule`
+-- Table `gradely.ch`.`benutzerschule`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `gradely`.`benutzerschule` (
+CREATE TABLE IF NOT EXISTS `gradely.ch`.`benutzerschule` (
   `benutzerID` INT NOT NULL,
   `schuleID` INT NOT NULL,
   PRIMARY KEY (`benutzerID`, `schuleID`),
   INDEX `schule_idx` (`schuleID` ASC),
   CONSTRAINT `benutzer`
     FOREIGN KEY (`benutzerID`)
-    REFERENCES `gradely`.`benutzer` (`id`)
+    REFERENCES `gradely.ch`.`benutzer` (`id`)
     ON DELETE CASCADE
     ON UPDATE CASCADE,
   CONSTRAINT `schule`
     FOREIGN KEY (`schuleID`)
-    REFERENCES `gradely`.`schule` (`id`)
+    REFERENCES `gradely.ch`.`schule` (`id`)
     ON DELETE CASCADE
     ON UPDATE CASCADE)
 ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `gradely`.`fach`
+-- Table `gradely.ch`.`fach`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `gradely`.`fach` (
+CREATE TABLE IF NOT EXISTS `gradely.ch`.`fach` (
   `id` INT NOT NULL AUTO_INCREMENT,
   `name` VARCHAR(45) NOT NULL,
   `schuleID` INT NOT NULL,
@@ -70,31 +70,31 @@ CREATE TABLE IF NOT EXISTS `gradely`.`fach` (
   INDEX `schule_idx` (`schuleID` ASC),
   CONSTRAINT `schule-fach`
     FOREIGN KEY (`schuleID`)
-    REFERENCES `gradely`.`schule` (`id`)
+    REFERENCES `gradely.ch`.`schule` (`id`)
     ON DELETE CASCADE
     ON UPDATE CASCADE)
 ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `gradely`.`fach-semester`
+-- Table `gradely.ch`.`fach-semester`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `gradely`.`fachsemester` (
+CREATE TABLE IF NOT EXISTS `gradely.ch`.`fachsemester` (
   `fachID` INT NOT NULL,
   `semester` INT NOT NULL,
   PRIMARY KEY (`fachID`, `semester`),
   CONSTRAINT `fach`
     FOREIGN KEY (`fachID`)
-    REFERENCES `gradely`.`fach` (`id`)
+    REFERENCES `gradely.ch`.`fach` (`id`)
     ON DELETE CASCADE
     ON UPDATE CASCADE)
 ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `gradely`.`typ`
+-- Table `gradely.ch`.`typ`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `gradely`.`typ` (
+CREATE TABLE IF NOT EXISTS `gradely.ch`.`typ` (
   `id` INT NOT NULL AUTO_INCREMENT,
   `name` VARCHAR(45) NOT NULL,
   PRIMARY KEY (`id`))
@@ -102,9 +102,9 @@ ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `gradely`.`gewichtung`
+-- Table `gradely.ch`.`gewichtung`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `gradely`.`gewichtung` (
+CREATE TABLE IF NOT EXISTS `gradely.ch`.`gewichtung` (
   `id` INT NOT NULL AUTO_INCREMENT,
   `wert` DOUBLE NOT NULL,
   PRIMARY KEY (`id`))
@@ -112,9 +112,9 @@ ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `gradely`.`note`
+-- Table `gradely.ch`.`note`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `gradely`.`note` (
+CREATE TABLE IF NOT EXISTS `gradely.ch`.`note` (
   `id` INT NOT NULL AUTO_INCREMENT,
   `wert` DOUBLE NOT NULL,
   `semester` INT NOT NULL,
@@ -123,6 +123,7 @@ CREATE TABLE IF NOT EXISTS `gradely`.`note` (
   `gewichtungID` INT NOT NULL,
   `typID` INT NOT NULL,
   `benutzerID` INT NOT NULL,
+  `aktualisiert` VARCHAR(10) NOT NULL,
   PRIMARY KEY (`id`),
   INDEX `typ_idx` (`typID` ASC),
   INDEX `gewichtung_idx` (`gewichtungID` ASC),
@@ -130,22 +131,22 @@ CREATE TABLE IF NOT EXISTS `gradely`.`note` (
   INDEX `fach_idx` (`fachID` ASC),
   CONSTRAINT `typ-note`
     FOREIGN KEY (`typID`)
-    REFERENCES `gradely`.`typ` (`id`)
+    REFERENCES `gradely.ch`.`typ` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `gewichtung-note`
     FOREIGN KEY (`gewichtungID`)
-    REFERENCES `gradely`.`gewichtung` (`id`)
+    REFERENCES `gradely.ch`.`gewichtung` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `benutzer-note`
     FOREIGN KEY (`benutzerID`)
-    REFERENCES `gradely`.`benutzer` (`id`)
+    REFERENCES `gradely.ch`.`benutzer` (`id`)
     ON DELETE CASCADE
     ON UPDATE CASCADE,
   CONSTRAINT `fach-note`
     FOREIGN KEY (`fachID`)
-    REFERENCES `gradely`.`fach` (`id`)
+    REFERENCES `gradely.ch`.`fach` (`id`)
     ON DELETE CASCADE
     ON UPDATE CASCADE)
 ENGINE = InnoDB;
@@ -156,11 +157,11 @@ SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
 
 -- -----------------------------------------------------
--- Data for table `gradely`.`schule`
+-- Data for table `gradely.ch`.`schule`
 -- -----------------------------------------------------
 START TRANSACTION;
-USE `gradely`;
-INSERT INTO `gradely`.`schule` (`name`, `semester`) VALUES
+USE `gradely.ch`;
+INSERT INTO `gradely.ch`.`schule` (`name`, `semester`) VALUES
 ('Gibb IET', 8),
 ('Gibb BMS', 8),
 ('Gibb Grundbildung', 8);
@@ -170,11 +171,11 @@ COMMIT;
 
 
 -- -----------------------------------------------------
--- Data for table `gradely`.`fach`
+-- Data for table `gradely.ch`.`fach`
 -- -----------------------------------------------------
 START TRANSACTION;
-USE `gradely`;
-INSERT INTO `gradely`.`fach` (`name`, `schuleID`) VALUES
+USE `gradely.ch`;
+INSERT INTO `gradely.ch`.`fach` (`name`, `schuleID`) VALUES
 -- Gibb IET semester 1
 ('Modul 100', 1),
 ('Modul 117', 1),
@@ -249,11 +250,11 @@ COMMIT;
 
 
 -- -----------------------------------------------------
--- Data for table `gradely`.`fach-semester`
+-- Data for table `gradely.ch`.`fach-semester`
 -- -----------------------------------------------------
 START TRANSACTION;
-USE `gradely`;
-INSERT INTO `gradely`.`fachsemester` (`fachID`, `semester`) VALUES
+USE `gradely.ch`;
+INSERT INTO `gradely.ch`.`fachsemester` (`fachID`, `semester`) VALUES
 -- Gibb semester 1
 (1, 1),
 (2, 1),
@@ -406,11 +407,11 @@ COMMIT;
 
 
 -- -----------------------------------------------------
--- Data for table `gradely`.`typ`
+-- Data for table `gradely.ch`.`typ`
 -- -----------------------------------------------------
 START TRANSACTION;
-USE `gradely`;
-INSERT INTO `gradely`.`typ` (`name`) VALUES
+USE `gradely.ch`;
+INSERT INTO `gradely.ch`.`typ` (`name`) VALUES
 ('Präsentation'),
 ('Grammatik'),
 ('Praktische Arbeit'),
@@ -424,11 +425,11 @@ COMMIT;
 
 
 -- -----------------------------------------------------
--- Data for table `gradely`.`gewichtung`
+-- Data for table `gradely.ch`.`gewichtung`
 -- -----------------------------------------------------
 START TRANSACTION;
-USE `gradely`;
-INSERT INTO `gradely`.`gewichtung` (`wert`) VALUES
+USE `gradely.ch`;
+INSERT INTO `gradely.ch`.`gewichtung` (`wert`) VALUES
 (0),
 (0.2),
 (0.25),
@@ -446,7 +447,7 @@ INSERT INTO `gradely`.`gewichtung` (`wert`) VALUES
 COMMIT;
 
 -- -----------------------------------------------------
--- User for database `gradely`
+-- User for database `gradely.ch`
 -- -----------------------------------------------------
-CREATE USER 'gradely'@'localhost' IDENTIFIED BY 'Absolute!Sicherheit4Gradely';
-GRANT SELECT, INSERT, UPDATE, DELETE ON `gradely`.* TO 'gradely'@'localhost';
+CREATE USER 'gradely.ch'@'localhost' IDENTIFIED BY 'Absolute!Sicherheit4gradely.ch';
+GRANT SELECT, INSERT, UPDATE, DELETE ON `gradely.ch`.* TO 'gradely.ch'@'localhost';

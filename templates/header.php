@@ -19,7 +19,7 @@
         <button class="navbar-toggler navbar-toggler-button" type="button" data-toggle="collapse"
                 data-target="#navbarText" aria-controls="navbarText" aria-expanded="false"
                 aria-label="Toggle navigation">
-            <img src="/images/menu-icon.png" class="navbar-toggler-icon navbar-toggler-image" alt="Burgermenü">
+			<span class="navbar-toggler-icon"></span>
         </button>
         <a href="/user">
             <img src="/images/logo.png" data-toggle="tooltip" title="Gradely | Home"
